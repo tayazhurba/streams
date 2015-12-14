@@ -40,9 +40,7 @@ trait Solver extends GameDef {
    * make sure that we don't explore circular paths.
    */
   def newNeighborsOnly(neighbors: Stream[(Block, List[Move])],
-                       explored: Set[Block]): Stream[(Block, List[Move])] = {
-    neighbors filterNot (explored contains _._1)
-  }
+                       explored: Set[Block]): Stream[(Block, List[Move])] = neighbors filterNot (explored contains _._1)
 
   /**
    * The function `from` returns the stream of all possible paths
@@ -69,9 +67,9 @@ trait Solver extends GameDef {
    */
   def from(initial: Stream[(Block, List[Move])],
            explored: Set[Block]): Stream[(Block, List[Move])] = initial match {
-    case (b,h) #:: xs => {
-      val ys = newNeighborsOnly(neighborsWithHistory(b,h), explored)
-      (b,h) #:: from(xs ++ ys, explored + b)
+    case (b,h) #:: x => {
+      val y = newNeighborsOnly(neighborsWithHistory(b,h), explored)
+      (b,h) #:: from(x ++ y, explored + b)
     }
     case _ => Stream.empty
   }
