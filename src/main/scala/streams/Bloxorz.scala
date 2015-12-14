@@ -46,4 +46,25 @@ object Bloxorz extends App {
   }
 
   println(Level1.solution)
+
+  object Level2 extends Level {
+    val level =
+      """-oooo------
+      |-oSoo------
+      |-oooo------
+      |-oooo------
+      |---o-------
+      |---o-------
+      |---ooo-----
+      |---ooo-----
+      |---ooo-----
+      |-----o-----
+      |-----o-----
+      |-ooooo-----
+      |oooooo-----
+      |ooTo-------
+      |oooo-------""".
+        stripMargin
+    }
+  println(Level2.solution)
 }

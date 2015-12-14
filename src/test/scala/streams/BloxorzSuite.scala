@@ -37,6 +37,27 @@ class BloxorzSuite extends FunSuite {
       |-----ooToo
       |------ooo-""".stripMargin
 
+
+//      val level2 =
+//        """-oooo------
+//          |-oSoo------
+//          |-oooo------
+//          |-oooo------
+//          |---o-------
+//          |---o-------
+//          |---ooo-----
+//          |---ooo-----
+//          |---ooo-----
+//          |-----o-----
+//          |-----o-----
+//          |-ooooo-----
+//          |oooooo-----
+//          |ooTo-------
+//          |oooo-------""".stripMargin
+
+
+
+
     val optsolution = List(Right, Right, Down, Right, Right, Right, Down)
   }
 
@@ -73,6 +94,29 @@ class BloxorzSuite extends FunSuite {
 	test("optimal solution length for level 1") {
     new Level1 {
       assert(solution.length === optsolution.length)
+    }
+  }
+
+  test("neighbors") {
+    new Level1 {
+      assert(neighborsWithHistory(Block(Pos(1,1),Pos(1,1)), List(Left,Up)) === Set(
+        (Block(Pos(1,2),Pos(1,3)), List(Right,Left,Up)),
+        (Block(Pos(2,1),Pos(3,1)), List(Down,Left,Up))).toStream)
+    }
+  }
+
+  test("new neighbors only") {
+    new Level1 {
+      assert(newNeighborsOnly(
+        Set(
+          (Block(Pos(1,2),Pos(1,3)), List(Right,Left,Up)),
+          (Block(Pos(2,1),Pos(3,1)), List(Down,Left,Up))
+        ).toStream,
+
+        Set(Block(Pos(1,2),Pos(1,3)), Block(Pos(1,1),Pos(1,1)))
+      ) ===  Set(
+        (Block(Pos(2,1),Pos(3,1)), List(Down,Left,Up))
+      ).toStream)
     }
   }
 
